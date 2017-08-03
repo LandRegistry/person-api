@@ -22,8 +22,3 @@ MAX_HEALTH_CASCADE = os.environ['MAX_HEALTH_CASCADE']
 # route until MAX_HEALTH_CASCADE is hit)
 # SELF = "http://localhost:8080"
 # DEPENDENCIES = {"SELF": SELF}
-
-# Using SQLAlchemy/Postgres?
-# The required variables (and required usage) can be found here:
-# http://192.168.249.38/gadgets/gadget-api/blob/master/gadget_api/config.py
-
