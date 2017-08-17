@@ -1,1 +1,190 @@
-
+openapi: 3.0.0
+servers: []
+info:
+  description: API to return mocked person data
+  version: 1.0.0
+  title: Person API
+paths:
+  /:
+    get:
+      summary: Display API routes
+      description: Displays the routes available on the API
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoints'
+  '/v1/people/{person_id}':
+    get:
+      tags:
+        - v1
+      summary: Find person by ID
+      description: Returns a single person
+      parameters:
+        - name: person_id
+          in: path
+          description: ID of person to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '404':
+          description: Person not found
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  schemas:
+    Endpoints:
+      type: object
+      properties:
+        endpoints:
+          type: array
+          items:
+            type: string
+            example: '/v1/people/, methods=[''GET'']'
+    Person:
+      type: object
+      properties:
+        person:
+          type: object
+          properties:
+            name:
+              $ref: '#/components/schemas/Name'
+            ID:
+              $ref: '#/components/schemas/ID'
+            Other known aliases:
+              type: array
+              items:
+                $ref: '#/components/schemas/Name'
+              minItems: 0
+            address:
+              $ref: '#/components/schemas/Address'
+            Previous addresses:
+              type: array
+              items:
+                $ref: '#/components/schemas/Address'
+              minItems: 0
+            date of birth:
+              $ref: '#/components/schemas/Date'
+            national insurance number:
+              type: string
+              pattern: >-
+                ^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}([A-D]|\s)$
+              example: AB123456A
+            passport number:
+              type: string
+              example: '123456789'
+            pasport expiry:
+              $ref: '#/components/schemas/Date'
+            relationship status:
+              type: string
+              example: married
+            relations:
+              type: array
+              items:
+                $ref: '#/components/schemas/Related'
+              minItems: 0
+            dependents:
+              type: array
+              items:
+                $ref: '#/components/schemas/Related'
+              minItems: 0
+            education level:
+              type: string
+              example: degree
+            social networks:
+              type: object
+              additionalProperties: true
+            email:
+              type: string
+              pattern: '^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,64}$'
+              example: jane.doe@some-email.com
+            mobile:
+              type: string
+              pattern: '^(0|\+[0-9]{2})[0-9 ]+$'
+              example: 07777 123456
+            telephone:
+              type: string
+              pattern: '^(0|\+[0-9]{2})[0-9 ]+$'
+              example: 01234 123456
+            finances:
+              $ref: '#/components/schemas/Finances'
+    Name:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Mrs
+        forename:
+          type: string
+          example: Jane
+        surname:
+          type: string
+          example: Doe
+    ID:
+      type: integer
+      example: 123456789
+    Address:
+      type: object
+      properties:
+        first line:
+          type: string
+          example: 1 Something Street
+        second line:
+          type: string
+          example: A place
+        city:
+          type: string
+          example: A city
+        postcode:
+          type: string
+          pattern: >-
+            ^(GIR
+            0AA)|(((A[BL]|B[ABDFHLNRSTX]?|C[ABFHMORTVW]|D[ADEGHLNTY]|E[HNX]?|F[KY]|G[LUY]?|H[ADGPRSUX]|I[GMPV]|JE|K[ATWY]|L[ADELNSU]?|M[EKL]?|N[EGNPRW]?|O[LX]|P[AEHLOR]|R[GHM]|S[AEGKLMNOPRSTY]?|T[ADFNQRSW]|UB|W[ADFNRSV]|YO|ZE)[1-9]?[0-9]|((E|N|NW|SE|SW|W)1|EC[1-4]|WC[12])[A-HJKMNPR-Y]|(SW|W)([2-9]|[1-9][0-9])|EC[1-9][0-9])
+            [0-9][ABD-HJLNP-UW-Z]{2})$
+          example: AB1 1BA
+    Date:
+      type: string
+      pattern: '^\d{2}\/\d{2}\/\d{4}$'
+      format: date
+      example: 04/01/2017
+    Related:
+      type: object
+      properties:
+        relation:
+          type: string
+          example: Spouse
+        name:
+          $ref: '#/components/schemas/Name'
+        ID:
+          $ref: '#/components/schemas/ID'
+    Finances:
+      type: object
+      properties:
+        current bank balance:
+          type: integer
+          example: 12345
+        tax paid in 2015:
+          type: integer
+          example: 1234
+        current savings:
+          type: integer
+          example: 23456
+        monthly income:
+          type: integer
+          example: 2468
+        monthly outgoings:
+          type: integer
+          example: 1357
+        credit score:
+          type: integer
+          example: 963
