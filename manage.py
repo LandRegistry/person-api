@@ -1,9 +1,6 @@
 from flask_script import Manager
 from person_api.main import app
 import os
-# Using Alembic?
-# See what extra lines are needed here:
-# http://192.168.249.38/gadgets/gadget-api/blob/master/manage.py
 
 manager = Manager(app)
 

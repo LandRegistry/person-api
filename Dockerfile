@@ -1,16 +1,12 @@
 # Set the base image to the base image
 FROM hmlandregistry/dev_base_python_flask:3
 
-# Using SQLAlchemy/Postgres?
-# See how the required env vars are set here:
-# http://192.168.249.38/gadgets/gadget-api/blob/master/Dockerfile
-
 # ----
 # Put your app-specific stuff here (extra yum installs etc).
 # Any unique environment variables your config.py needs should also be added as ENV entries here
 
-ENV APP_NAME person-api
-ENV MAX_HEALTH_CASCADE 6
+ENV APP_NAME=person-api \
+    MAX_HEALTH_CASCADE=6
 
 # ----
 
