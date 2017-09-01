@@ -1,12 +1,27 @@
 # Set the base image to the base image
-FROM hmlandregistry/dev_base_python_flask:3
+FROM python:3.6
 
 # ----
 # Put your app-specific stuff here (extra yum installs etc).
 # Any unique environment variables your config.py needs should also be added as ENV entries here
 
-ENV APP_NAME=person-api \
-    MAX_HEALTH_CASCADE=6
+EXPOSE 8080
+
+ENV PYTHONUNBUFFERED=yes \
+    LOG_LEVEL=DEBUG \
+    APP_NAME=person-api \
+    MAX_HEALTH_CASCADE=6 \
+    PORT=8080 \
+    COMMIT=LOCAL \
+    PYTHONPATH=/src \
+    SENDFILE=0 \
+    TEMPLATES_AUTO_RELOAD=true
+
+WORKDIR /src
+
+RUN pip install gunicorn eventlet
+
+CMD ["/usr/local/bin/gunicorn", "-k", "eventlet", "--pythonpath", "/src", "--access-logfile", "-", "manage:manager.app", "--reload"]
 
 # ----
 
