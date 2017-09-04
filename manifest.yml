@@ -1,0 +1,5 @@
+---
+applications:
+ - name: PersonAPI
+   random-route: true
+   memory: 128M
