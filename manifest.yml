@@ -1,5 +1,13 @@
 ---
 applications:
  - name: PersonAPI
-   random-route: true
-   memory: 128M
+   memory: 75M
+   instances: 1
+   domain: eu-gb.mybluemix.net
+   host: hmlr-ds-personapi
+   env:
+    PYTHONUNBUFFERED: 1
+    LOG_LEVEL: DEBUG
+    APP_NAME: person-api
+    COMMIT: master
+    MAX_HEALTH_CASCADE: 6
